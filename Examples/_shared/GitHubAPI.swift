@@ -1,3 +1,5 @@
+// swiftlint:disable force_unwrapping
+
 import Foundation
 import Moya
 import Result
@@ -15,7 +17,7 @@ private func JSONResponseDataFormatter(_ data: Data) -> Data {
     }
 }
 
-let GitHubProvider = MoyaProvider<GitHub>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
+let gitHubProvider = MoyaProvider<GitHub>(plugins: [NetworkLoggerPlugin(verbose: true, responseDataFormatter: JSONResponseDataFormatter)])
 
 // MARK: - Provider support
 
@@ -48,7 +50,7 @@ extension GitHub: TargetType {
     }
     public var task: Task {
         switch self {
-        case .userRepositories(_):
+        case .userRepositories:
             return .requestParameters(parameters: ["sort": "pushed"], encoding: URLEncoding.default)
         default:
             return .requestPlain
@@ -68,8 +70,8 @@ extension GitHub: TargetType {
             return "Half measures are as bad as nothing at all.".data(using: String.Encoding.utf8)!
         case .userProfile(let name):
             return "{\"login\": \"\(name)\", \"id\": 100}".data(using: String.Encoding.utf8)!
-        case .userRepositories(_):
-            return "[{\"name\": \"Repo Name\"}]".data(using: String.Encoding.utf8)!
+        case .userRepositories(let name):
+            return "[{\"name\": \"\(name)\"}]".data(using: String.Encoding.utf8)!
         }
     }
     public var headers: [String: String]? {
