@@ -197,6 +197,7 @@ private extension MoyaProvider {
         return sendAlamofireRequest(alamoRequest, target: target, callbackQueue: callbackQueue, progress: progress, completion: completion)
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     func sendAlamofireRequest<T>(_ alamoRequest: T, target: Target, callbackQueue: DispatchQueue?, progress progressCompletion: Moya.ProgressBlock?, completion: @escaping Moya.Completion) -> CancellableToken where T: Requestable, T: Request {
         // Give plugins the chance to alter the outgoing request
         let plugins = self.plugins

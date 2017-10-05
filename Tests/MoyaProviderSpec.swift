@@ -585,7 +585,7 @@ class MoyaProviderSpec: QuickSpec {
             }
 
             it("uses correct headers") {
-                var headers: [String : String]?
+                var headers: [String: String]?
                 let endpointResolution: MoyaProvider<MultiTarget>.RequestClosure = { endpoint, done in
                     headers = endpoint.httpHeaderFields
                     if let urlRequest = endpoint.urlRequest {
